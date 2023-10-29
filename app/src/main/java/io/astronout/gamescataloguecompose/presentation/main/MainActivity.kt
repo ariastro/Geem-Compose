@@ -3,15 +3,19 @@ package io.astronout.gamescataloguecompose.presentation.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.navigation.navigate
 import io.astronout.core.theme.GamesCatalogueComposeTheme
-import io.astronout.gamescataloguecompose.presentation.home.HomeScreen
+import io.astronout.gamescataloguecompose.domain.model.BottomBarDestination
+import io.astronout.gamescataloguecompose.presentation.NavGraphs
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +26,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen()
+                    val navController = rememberNavController()
+                    Scaffold(
+                        bottomBar = {
+                            BottomNavigationBar(
+                                navController = navController,
+                                items = BottomBarDestination.values().toList(),
+                                onItemClick = {
+                                    navController.navigate(it.direction) {
+                                        launchSingleTop = true
+                                    }
+                                }
+                            )
+                        }
+                    ) {
+                        Box(modifier = Modifier.padding(it)) {
+                            DestinationsNavHost(navGraph = NavGraphs.root, navController = navController)
+                        }
+                    }
                 }
             }
         }

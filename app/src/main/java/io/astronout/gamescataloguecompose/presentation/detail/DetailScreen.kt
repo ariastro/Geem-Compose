@@ -38,6 +38,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
 import io.astronout.core.components.Gap
 import io.astronout.core.theme.Neutral40
 import io.astronout.core.theme.Neutral50
@@ -48,8 +49,9 @@ import io.astronout.gamescataloguecompose.presentation.home.components.TagChip
 
 @OptIn(ExperimentalLayoutApi::class)
 @Preview
+@Destination
 @Composable
-fun DetailScreen() {
+fun DetailScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -25,17 +26,27 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
+    kotlin {
+        sourceSets {
+            debug {
+                kotlin.srcDir("build/generated/ksp/debug/kotlin")
+            }
+            release {
+                kotlin.srcDir("build/generated/ksp/release/kotlin")
+            }
+        }
     }
 }
 
@@ -46,6 +57,10 @@ dependencies {
     api(libs.compose.ui.graphics)
     api(libs.compose.ui.preview)
     api(platform(libs.compose.bom))
+    api(libs.compose.destination)
+    ksp(libs.compose.destination.ksp)
+    api(libs.compose.navigation)
+    api(libs.compose.icons.extended)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
