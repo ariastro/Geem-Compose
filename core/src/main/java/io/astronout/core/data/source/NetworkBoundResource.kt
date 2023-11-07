@@ -3,6 +3,7 @@ package io.astronout.core.data.source
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.StatusCode
 import com.skydoves.sandwich.message
+import com.skydoves.sandwich.retrofit.statusCode
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnException
 import com.skydoves.sandwich.suspendOnSuccess
