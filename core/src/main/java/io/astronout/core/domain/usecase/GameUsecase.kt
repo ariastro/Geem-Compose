@@ -8,7 +8,7 @@ interface GameUsecase {
 
     fun getAllGames(): Flow<Resource<List<Game>>>
 
-    fun searchGames(query: String): Flow<Resource<List<Game>>>
+    fun getHotGames(): Flow<Resource<List<Game>>>
 
     suspend fun setIsFavorites(isFavorites: Boolean, id: Long)
 

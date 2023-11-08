@@ -13,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.navigation.navigate
+import dagger.hilt.android.AndroidEntryPoint
 import io.astronout.core.theme.GamesCatalogueComposeTheme
 import io.astronout.gamescataloguecompose.domain.model.BottomBarDestination
 import io.astronout.gamescataloguecompose.presentation.NavGraphs
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

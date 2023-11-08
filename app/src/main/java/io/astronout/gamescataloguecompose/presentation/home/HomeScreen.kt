@@ -3,16 +3,24 @@ package io.astronout.gamescataloguecompose.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import io.astronout.core.components.Gap
@@ -23,9 +31,19 @@ import io.astronout.gamescataloguecompose.presentation.home.components.TopBar
 
 @Destination(start = true)
 @Composable
-fun HomeScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier) {
+fun HomeScreen(
+    navigator: DestinationsNavigator,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(key1 = Unit, block = {
+        viewModel.onInit(navigator)
+    })
+
+    val state by viewModel.uiState.collectAsState()
+
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
@@ -41,8 +59,8 @@ fun HomeScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier) 
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     contentPadding = PaddingValues(horizontal = 24.dp)
                 ) {
-                    items(5) {
-                        GameItemHorizontal()
+                    items(items = state.hotGames, key = { it.id }) {
+                        GameItemHorizontal(game = it)
                     }
                 }
             }
@@ -51,8 +69,8 @@ fun HomeScreen(navigator: DestinationsNavigator, modifier: Modifier = Modifier) 
                 SectionTitle(title = "Popular Games")
                 Gap(vertical = 8.dp)
             }
-            items(4) {
-                GameItem(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
+            items(items = state.games, key = { it.id }) {
+                GameItem(game = it, modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
             }
             item {
                 Gap(vertical = 8.dp)

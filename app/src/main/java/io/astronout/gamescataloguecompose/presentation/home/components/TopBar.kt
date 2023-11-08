@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,10 +42,10 @@ fun TopBar(modifier: Modifier = Modifier) {
                 .weight(1F)
                 .padding(horizontal = 16.dp)
         )
-        Image(
-            painter = painterResource(id = R.drawable.ic_notif),
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(Primary50),
+        Icon(
+            imageVector = Icons.Default.Settings,
+            contentDescription = "",
+            tint = Primary50,
             modifier = Modifier.size(24.dp)
         )
     }

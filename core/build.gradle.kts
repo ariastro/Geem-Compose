@@ -17,7 +17,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -79,9 +79,12 @@ dependencies {
     api(libs.compose.navigation)
     api(libs.compose.icons.extended)
     api(libs.compose.lifecycle.viewmodel)
+    api(libs.compose.lifecycle.runtime)
 
     api(libs.core.ktx)
     api(libs.bundles.networking)
+
+    api(libs.bundles.lifecycle)
 
     api(libs.bundles.moshi)
     ksp(libs.moshi.codegen)
@@ -93,6 +96,8 @@ dependencies {
 
     api(libs.bundles.room)
     ksp(libs.room.compiler)
+
+    api(libs.coil)
 
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)

@@ -2,6 +2,8 @@ package io.astronout.core.data.source.local
 
 import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.local.room.GameDatabase
+import io.astronout.core.data.source.remote.model.GameRequest
+import io.astronout.core.utils.getLastMonthDate
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -11,6 +13,10 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun getAllGames(): Flow<List<GameEntity>> {
         return appDatabase.gameDao().getAllGames()
+    }
+
+    override fun getHotGames(): Flow<List<GameEntity>> {
+        return appDatabase.gameDao().getHotGames(getLastMonthDate())
     }
 
     override fun searchGames(query: String): Flow<List<GameEntity>> {

@@ -3,12 +3,11 @@ package io.astronout.core.data.source.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import io.astronout.core.data.source.local.room.StringTypeConverter
 import io.astronout.core.data.source.remote.model.GamesResponse
+import io.astronout.core.utils.toDate
+import java.util.Date
 
 @Entity(tableName = "game")
-@TypeConverters(StringTypeConverter::class)
 data class GameEntity(
     @PrimaryKey
     val id: Long,
@@ -17,7 +16,7 @@ data class GameEntity(
     @ColumnInfo(name = "name")
     val name: String,
     @ColumnInfo(name = "released")
-    val released: String,
+    val released: Date?,
     @ColumnInfo(name = "tba")
     val tba: Boolean,
     @ColumnInfo(name = "background_image")
@@ -67,7 +66,7 @@ data class GameEntity(
         id = data?.id ?: 0,
         slug = data?.slug.orEmpty(),
         name = data?.name.orEmpty(),
-        released = data?.released.orEmpty(),
+        released = data?.released?.toDate(),
         tba = data?.tba ?: false,
         backgroundImage = data?.backgroundImage.orEmpty(),
         rating = data?.rating ?: 0.0,

@@ -1,0 +1,27 @@
+package io.astronout.core.data.source.remote.model
+
+data class GameRequest(
+    val page: Int? = null,
+    val pageSize: Int? = null,
+    val ordering: String? = null,
+    val search: String? = null,
+    val searchPrecise: Boolean? = null,
+    val searchExact: Boolean? = null,
+    val parentPlatforms: String? = null,
+    val platforms: String? = null,
+    val platformsCount: Int? = null,
+    val creators: String? = null,
+    val developers: String? = null,
+    val publishers: String? = null,
+    val genres: String? = null,
+    val tags: String? = null,
+    val stores: String? = null,
+    val dates: String? = null,
+    val updated: String? = null,
+    val metacritic: String? = null,
+    val excludeStores: String? = null,
+    val excludeCollection: Int? = null,
+    val excludeAdditions: Boolean? = null,
+    val excludeParents: Boolean? = null,
+    val excludeGameSeries: Boolean? = null,
+)

@@ -3,6 +3,8 @@ package io.astronout.core.domain.model
 import android.os.Parcelable
 import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.remote.model.GamesResponse
+import io.astronout.core.utils.ConverterDate
+import io.astronout.core.utils.toString
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -68,7 +70,7 @@ data class Game(
         id = data?.id ?: 0,
         slug = data?.slug.orEmpty(),
         name = data?.name.orEmpty(),
-        released = data?.released.orEmpty(),
+        released = data?.released?.toString(ConverterDate.SQL_DATE).orEmpty(),
         tba = data?.tba ?: false,
         backgroundImage = data?.backgroundImage.orEmpty(),
         rating = data?.rating ?: 0.0,

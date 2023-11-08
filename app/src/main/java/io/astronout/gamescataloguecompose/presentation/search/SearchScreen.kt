@@ -25,7 +25,7 @@ fun SearchScreen() {
     ) {
         LazyColumn {
             items(5) {
-                GameItem(modifier = Modifier.padding(vertical = 8.dp))
+//                GameItem(modifier = Modifier.padding(vertical = 8.dp))
             }
         }
     }

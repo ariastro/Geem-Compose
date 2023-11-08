@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import io.astronout.core.data.source.local.entity.GameEntity
 import kotlinx.coroutines.flow.Flow
+import java.util.Date
 
 @Dao
 interface GameDao {
@@ -19,6 +20,9 @@ interface GameDao {
 
     @Query("SELECT * FROM game")
     fun getAllGames(): Flow<List<GameEntity>>
+
+    @Query("SELECT * FROM game WHERE released >= :date ORDER BY rating DESC LIMIT 20 ")
+    fun getHotGames(date: Date): Flow<List<GameEntity>>
 
     @Query("SELECT * FROM game WHERE name LIKE '%' || :query || '%'")
     fun searchGames(query: String): Flow<List<GameEntity>>
