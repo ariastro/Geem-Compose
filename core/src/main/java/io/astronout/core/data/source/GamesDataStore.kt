@@ -4,6 +4,7 @@ import com.skydoves.sandwich.ApiResponse
 import io.astronout.core.data.source.local.LocalDataSource
 import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.remote.RemoteDataSource
+import io.astronout.core.data.source.remote.model.GameItem
 import io.astronout.core.data.source.remote.model.GameRequest
 import io.astronout.core.data.source.remote.model.GamesResponse
 import io.astronout.core.domain.model.Game
@@ -63,6 +64,24 @@ class GamesDataStore @Inject constructor(
             }
         }.asFlow()
 
+    override fun getGameDetails(id: Long): Flow<Resource<Game>> =
+        object : NetworkBoundResource<Game, GameItem>() {
+            override fun loadFromDB(): Flow<Game> {
+                return localDataSource.getGameDetail(id).map { Game(it) }
+            }
+
+            override suspend fun createCall(): ApiResponse<GameItem> =
+                remoteDataSource.getGameDetails(id)
+
+            override suspend fun saveCallResult(data: GameItem) {
+                localDataSource.updateGameDescription(data.id ?: 0, data.description.orEmpty())
+            }
+
+            override fun shouldFetch(data: Game?): Boolean =
+                data?.description.isNullOrEmpty()
+
+        }.asFlow()
+
     override suspend fun setIsFavorites(isFavorites: Boolean, id: Long) {
         localDataSource.setIsFavorites(isFavorites, id)
     }
@@ -71,9 +90,5 @@ class GamesDataStore @Inject constructor(
         return localDataSource.getAllFavoriteGames().map { games ->
             games.map { Game(it) }
         }
-    }
-
-    override fun getGameDetails(id: Long): Flow<Game> {
-        return localDataSource.getGameDetail(id).map { Game(it) }
     }
 }

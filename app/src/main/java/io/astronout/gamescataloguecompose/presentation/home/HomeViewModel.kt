@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.astronout.core.domain.model.Game
 import io.astronout.core.domain.usecase.GameUsecase
 import io.astronout.core.vo.Resource
+import io.astronout.gamescataloguecompose.presentation.destinations.DetailScreenDestination
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -65,6 +67,16 @@ class HomeViewModel @Inject constructor(private val gameUsecase: GameUsecase): V
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun onEvent(event: HomeScreenEvent) {
+        when (event) {
+            is HomeScreenEvent.NavigateToDetailScreen -> navigateToDetailScreen(event.game)
+        }
+    }
+
+    private fun navigateToDetailScreen(game: Game) {
+        navigator.navigate(DetailScreenDestination(game))
     }
 
 }

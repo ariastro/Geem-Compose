@@ -15,8 +15,8 @@ interface GameDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGames(games: List<GameEntity>)
 
-    @Update
-    fun updateGame(game: GameEntity)
+    @Query("UPDATE game SET description = :description WHERE id = :id")
+    fun updateGameDescription(id: Long, description: String)
 
     @Query("SELECT * FROM game")
     fun getAllGames(): Flow<List<GameEntity>>

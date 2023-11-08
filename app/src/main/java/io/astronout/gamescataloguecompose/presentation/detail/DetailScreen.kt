@@ -1,138 +1,83 @@
 package io.astronout.gamescataloguecompose.presentation.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import io.astronout.core.components.Gap
+import io.astronout.core.domain.model.Game
+import io.astronout.core.theme.Accent10
+import io.astronout.core.theme.Accent50
 import io.astronout.core.theme.Neutral40
 import io.astronout.core.theme.Neutral50
 import io.astronout.core.theme.Primary70
-import io.astronout.core.theme.Yellow
-import io.astronout.gamescataloguecompose.R
-import io.astronout.gamescataloguecompose.presentation.home.components.TagChip
+import io.astronout.gamescataloguecompose.presentation.detail.components.GamePoster
+import io.astronout.gamescataloguecompose.presentation.home.components.RatingBar
+import io.astronout.gamescataloguecompose.presentation.home.components.TagGroup
 
-@OptIn(ExperimentalLayoutApi::class)
-@Preview
 @Destination
 @Composable
-fun DetailScreen(modifier: Modifier = Modifier) {
+fun DetailScreen(
+    game: Game,
+    navigator: DestinationsNavigator,
+    viewModel: DetailViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(key1 = Unit, block = {
+        viewModel.onInit(game.id, navigator)
+    })
+
+    var savedState by remember {
+        mutableStateOf(game.isFavorites)
+    }
+
+    val state by viewModel.uiState.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(rememberScrollState())
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy((-30).dp),
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.poster),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.2F))
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 24.dp, vertical = 18.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false),
-                                onClick = {
-
-                                }
-                            )
-                    )
-                    Icon(
-                        imageVector = Icons.Default.Info,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(24.dp)
-                    )
-                }
-                Column(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .background(Color.White, CircleShape)
-                            .clickable {}
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_play),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(Primary70),
-                            modifier = Modifier
-                                .size(24.dp)
-                                .align(Alignment.Center)
-                        )
-                    }
-                    Gap(size = 8.dp)
-                    Text(
-                        text = "Play Trailer",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = Color.White
-                    )
-                }
-            }
+            GamePoster(game = game, onEvent = viewModel::onEvent)
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -146,16 +91,16 @@ fun DetailScreen(modifier: Modifier = Modifier) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Spiderman: No Way Home Home Home Home",
+                        text = game.name,
                         style = MaterialTheme.typography.titleLarge,
                         color = Primary70,
                         modifier = Modifier.weight(1F)
                     )
                     Gap(size = 8.dp)
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_bookmark),
+                    Icon(
+                        imageVector = if (savedState) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
                         contentDescription = null,
-                        colorFilter = ColorFilter.tint(Primary70),
+                        tint = Primary70,
                         modifier = Modifier
                             .size(32.dp)
                             .padding(top = 4.dp)
@@ -163,34 +108,54 @@ fun DetailScreen(modifier: Modifier = Modifier) {
                                 interactionSource = remember { MutableInteractionSource() },
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
-
+                                    savedState = !savedState
+                                    viewModel.onEvent(DetailScreenEvent.BookmarkGame(
+                                        id = game.id,
+                                        bookmarked = savedState
+                                    ))
                                 }
                             )
                     )
                 }
                 Gap(size = 8.dp)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Filled.Star,
-                        contentDescription = null,
-                        tint = Yellow,
-                        modifier = Modifier.size(12.dp)
-                    )
-                    Gap(size = 2.dp)
-                    Text(
-                        text = "9.1/10 IMDb",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = Neutral50
-                    )
-                }
-                Gap(size = 16.dp)
-                FlowRow(
-                    modifier = Modifier,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                RatingBar(
+                    rating = game.rating.toFloat(),
+                    modifier = Modifier.height(16.dp)
+                )
+                Gap(size = 24.dp)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(40.dp)
                 ) {
-                    repeat(3) {
-                        TagChip(name = "Horror")
+                    Column {
+                        Text(
+                            text = "Metascore",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Neutral40
+                        )
+                        Gap(size = 8.dp)
+                        Box(modifier = Modifier
+                            .size(36.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Accent10)
+                        ) {
+                            Text(
+                                text = if (game.metacritic != 0) game.metacritic.toString() else "-",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = Accent50,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
+                    Column {
+                        Text(
+                            text = "Genre",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Neutral40
+                        )
+                        Gap(size = 8.dp)
+                        TagGroup(tag = game.genres)
                     }
                 }
                 Gap(size = 24.dp)
@@ -201,10 +166,18 @@ fun DetailScreen(modifier: Modifier = Modifier) {
                 )
                 Gap(size = 8.dp)
                 Text(
-                    text = "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
+                    text = state.game?.description ?: "-",
                     style = MaterialTheme.typography.labelSmall,
                     color = Neutral50,
                 )
+                Gap(size = 24.dp)
+                Text(
+                    text = "Tag",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Neutral40
+                )
+                Gap(size = 8.dp)
+                TagGroup(tag = game.tags.take(8))
             }
         }
     }

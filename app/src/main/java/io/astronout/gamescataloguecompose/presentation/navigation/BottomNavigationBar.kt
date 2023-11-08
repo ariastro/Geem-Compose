@@ -1,4 +1,4 @@
-package io.astronout.gamescataloguecompose.presentation.main
+package io.astronout.gamescataloguecompose.presentation.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import io.astronout.gamescataloguecompose.domain.model.BottomBarDestination
 import io.astronout.gamescataloguecompose.presentation.NavGraphs
 import io.astronout.gamescataloguecompose.presentation.appCurrentDestinationAsState
 import io.astronout.gamescataloguecompose.presentation.startAppDestination
@@ -26,7 +25,9 @@ fun BottomNavigationBar(
             NavigationBarItem(
                 selected = currentDestination == bottomNavItem.direction,
                 onClick = {
-                    onItemClick(bottomNavItem)
+                    if (bottomNavItem.direction != currentDestination) {
+                        onItemClick(bottomNavItem)
+                    }
                 },
                 label = {
                     Text(text = stringResource(bottomNavItem.label))

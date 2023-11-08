@@ -1,4 +1,4 @@
-package io.astronout.gamescataloguecompose.domain.model
+package io.astronout.gamescataloguecompose.presentation.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
@@ -12,6 +12,7 @@ import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 import io.astronout.gamescataloguecompose.R
 import io.astronout.gamescataloguecompose.presentation.destinations.DetailScreenDestination
 import io.astronout.gamescataloguecompose.presentation.destinations.HomeScreenDestination
+import io.astronout.gamescataloguecompose.presentation.destinations.SearchScreenDestination
 
 enum class BottomBarDestination(
     val direction: DirectionDestinationSpec,
@@ -20,6 +21,6 @@ enum class BottomBarDestination(
     val unselectedIcon: ImageVector,
 ) {
     Home(HomeScreenDestination, R.string.title_home, Icons.Filled.Home, Icons.Outlined.Home),
-    Search(DetailScreenDestination, R.string.title_search, Icons.Filled.Search, Icons.Outlined.Search),
-    Bookmark(DetailScreenDestination, R.string.title_bookmark, Icons.Default.BookmarkBorder, Icons.Default.BookmarkBorder),
+    Search(SearchScreenDestination, R.string.title_search, Icons.Filled.Search, Icons.Outlined.Search),
+    Bookmark(HomeScreenDestination, R.string.title_bookmark, Icons.Default.BookmarkBorder, Icons.Default.BookmarkBorder),
 }

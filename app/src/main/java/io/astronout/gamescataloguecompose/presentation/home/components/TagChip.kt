@@ -14,7 +14,7 @@ import io.astronout.core.theme.Accent50
 
 @Preview
 @Composable
-fun TagChip(name: String = "Title", modifier: Modifier = Modifier) {
+fun TagChip(modifier: Modifier = Modifier, name: String = "Title") {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(100.dp),
@@ -24,7 +24,7 @@ fun TagChip(name: String = "Title", modifier: Modifier = Modifier) {
             text = name,
             style = MaterialTheme.typography.bodyMedium,
             color = Accent50,
-            modifier = Modifier.padding(vertical = 4.dp, horizontal = 12.dp)
+            modifier = Modifier.padding(vertical = 3.dp, horizontal = 12.dp)
         )
     }
 }

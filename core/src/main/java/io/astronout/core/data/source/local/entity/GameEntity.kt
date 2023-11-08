@@ -3,6 +3,7 @@ package io.astronout.core.data.source.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.astronout.core.data.source.remote.model.GameItem
 import io.astronout.core.data.source.remote.model.GamesResponse
 import io.astronout.core.utils.toDate
 import java.util.Date
@@ -62,7 +63,7 @@ data class GameEntity(
     @ColumnInfo(name = "is_favorites")
     var isFavorites: Boolean
 ) {
-    constructor(data: GamesResponse.Game?): this(
+    constructor(data: GameItem?): this(
         id = data?.id ?: 0,
         slug = data?.slug.orEmpty(),
         name = data?.name.orEmpty(),

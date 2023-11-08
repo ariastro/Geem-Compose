@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">GamesCatalogueCompose</string>
+    <string name="app_name">Geem</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_bookmark">Bookmark</string>
+    <string name="action_play_trailer">Play Trailer</string>
 </resources>

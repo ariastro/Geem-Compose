@@ -24,7 +24,7 @@ class GameInteractor @Inject constructor(private val repo: GamesRepository) : Ga
         return repo.getAllFavoritesGames()
     }
 
-    override fun getGameDetails(id: Long): Flow<Game> {
+    override fun getGameDetails(id: Long): Flow<Resource<Game>> {
         return repo.getGameDetails(id)
     }
 

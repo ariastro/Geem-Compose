@@ -1,4 +1,4 @@
-package io.astronout.core.components
+package io.astronout.gamescataloguecompose.presentation.home.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background

@@ -39,7 +39,7 @@ class LocalDataSourceImpl @Inject constructor(
         appDatabase.gameDao().insertGames(games)
     }
 
-    override suspend fun updateGame(game: GameEntity) {
-        appDatabase.gameDao().updateGame(game)
+    override suspend fun updateGameDescription(id: Long, description: String) {
+        appDatabase.gameDao().updateGameDescription(id, description)
     }
 }

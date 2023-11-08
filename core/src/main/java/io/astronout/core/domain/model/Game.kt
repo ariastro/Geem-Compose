@@ -2,6 +2,7 @@ package io.astronout.core.domain.model
 
 import android.os.Parcelable
 import io.astronout.core.data.source.local.entity.GameEntity
+import io.astronout.core.data.source.remote.model.GameItem
 import io.astronout.core.data.source.remote.model.GamesResponse
 import io.astronout.core.utils.ConverterDate
 import io.astronout.core.utils.toString
@@ -37,7 +38,7 @@ data class Game(
     val description: String
 ): Parcelable {
 
-    constructor(data: GamesResponse.Game?): this(
+    constructor(data: GameItem?): this(
         id = data?.id ?: 0,
         slug = data?.slug.orEmpty(),
         name = data?.name.orEmpty(),
@@ -63,7 +64,7 @@ data class Game(
         esrbRating = data?.esrbRating?.name.orEmpty(),
         shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty(),
         isFavorites = false,
-        description = ""
+        description = data?.description.orEmpty()
     )
 
     constructor(data: GameEntity?): this(

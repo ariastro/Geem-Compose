@@ -1,5 +1,6 @@
 package io.astronout.gamescataloguecompose.presentation.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,15 +15,23 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.astronout.core.components.Gap
-import io.astronout.core.components.RatingBar
 import io.astronout.core.domain.model.Game
 import io.astronout.core.theme.Primary80
 import io.astronout.core.utils.NetworkImage
+import io.astronout.gamescataloguecompose.presentation.home.HomeScreenEvent
 
 @Composable
-fun GameItemHorizontal(game: Game, modifier: Modifier = Modifier) {
+fun GameItemHorizontal(
+    modifier: Modifier = Modifier,
+    game: Game,
+    onEvent: (HomeScreenEvent) -> Unit)
+{
     Column(
-        modifier.width(140.dp),
+        modifier = modifier
+            .width(140.dp)
+            .clickable {
+                onEvent(HomeScreenEvent.NavigateToDetailScreen(game))
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         NetworkImage(
