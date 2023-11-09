@@ -22,8 +22,8 @@ import io.astronout.gamescataloguecompose.presentation.home.HomeScreenEvent
 
 @Composable
 fun GameItemHorizontal(
-    modifier: Modifier = Modifier,
     game: Game,
+    modifier: Modifier = Modifier,
     onEvent: (HomeScreenEvent) -> Unit)
 {
     Column(

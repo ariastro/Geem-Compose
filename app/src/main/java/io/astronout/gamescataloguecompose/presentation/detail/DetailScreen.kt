@@ -4,12 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -35,18 +33,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import io.astronout.core.components.Gap
 import io.astronout.core.domain.model.Game
-import io.astronout.core.theme.Accent10
-import io.astronout.core.theme.Accent50
 import io.astronout.core.theme.Neutral40
 import io.astronout.core.theme.Neutral50
 import io.astronout.core.theme.Primary70
 import io.astronout.gamescataloguecompose.presentation.detail.components.GamePoster
-import io.astronout.gamescataloguecompose.presentation.home.components.RatingBar
+import io.astronout.gamescataloguecompose.presentation.detail.components.GeneralGameInfo
+import io.astronout.gamescataloguecompose.presentation.detail.components.Screenshots
 import io.astronout.gamescataloguecompose.presentation.home.components.TagGroup
 
 @Destination
@@ -58,7 +54,7 @@ fun DetailScreen(
 ) {
 
     LaunchedEffect(key1 = Unit, block = {
-        viewModel.onInit(game.id, navigator)
+        viewModel.onInit(game, navigator)
     })
 
     var savedState by remember {
@@ -109,55 +105,18 @@ fun DetailScreen(
                                 indication = rememberRipple(bounded = false),
                                 onClick = {
                                     savedState = !savedState
-                                    viewModel.onEvent(DetailScreenEvent.BookmarkGame(
-                                        id = game.id,
-                                        bookmarked = savedState
-                                    ))
+                                    viewModel.onEvent(
+                                        DetailScreenEvent.BookmarkGame(
+                                            id = game.id,
+                                            bookmarked = savedState
+                                        )
+                                    )
                                 }
                             )
                     )
                 }
                 Gap(size = 8.dp)
-                RatingBar(
-                    rating = game.rating.toFloat(),
-                    modifier = Modifier.height(16.dp)
-                )
-                Gap(size = 24.dp)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.spacedBy(40.dp)
-                ) {
-                    Column {
-                        Text(
-                            text = "Metascore",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Neutral40
-                        )
-                        Gap(size = 8.dp)
-                        Box(modifier = Modifier
-                            .size(36.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(Accent10)
-                        ) {
-                            Text(
-                                text = if (game.metacritic != 0) game.metacritic.toString() else "-",
-                                style = MaterialTheme.typography.titleSmall,
-                                color = Accent50,
-                                modifier = Modifier.align(Alignment.Center)
-                            )
-                        }
-                    }
-                    Column {
-                        Text(
-                            text = "Genre",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Neutral40
-                        )
-                        Gap(size = 8.dp)
-                        TagGroup(tag = game.genres)
-                    }
-                }
+                GeneralGameInfo(game = game)
                 Gap(size = 24.dp)
                 Text(
                     text = "Description",
@@ -170,6 +129,8 @@ fun DetailScreen(
                     style = MaterialTheme.typography.labelSmall,
                     color = Neutral50,
                 )
+                Gap(size = 24.dp)
+                Screenshots(urls = game.shortScreenshots)
                 Gap(size = 24.dp)
                 Text(
                     text = "Tag",

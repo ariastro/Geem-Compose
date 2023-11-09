@@ -39,8 +39,8 @@ import io.astronout.gamescataloguecompose.presentation.detail.DetailScreenEvent
 
 @Composable
 fun GamePoster(
-    modifier: Modifier = Modifier,
     game: Game,
+    modifier: Modifier = Modifier,
     onEvent: (DetailScreenEvent) -> Unit)
 {
     Box(

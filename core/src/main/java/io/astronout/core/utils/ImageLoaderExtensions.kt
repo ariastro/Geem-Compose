@@ -13,6 +13,7 @@ import io.astronout.core.R
 fun NetworkImage(
     url: String,
     modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Crop,
 ) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
@@ -21,7 +22,7 @@ fun NetworkImage(
             .build(),
         placeholder = painterResource(R.drawable.ic_placeholder),
         contentDescription = "",
-        contentScale = ContentScale.Crop,
+        contentScale = contentScale,
         modifier = modifier
     )
 }

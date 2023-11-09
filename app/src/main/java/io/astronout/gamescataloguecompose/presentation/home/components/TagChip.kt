@@ -12,9 +12,8 @@ import androidx.compose.ui.unit.dp
 import io.astronout.core.theme.Accent10
 import io.astronout.core.theme.Accent50
 
-@Preview
 @Composable
-fun TagChip(modifier: Modifier = Modifier, name: String = "Title") {
+fun TagChip(name: String, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(100.dp),

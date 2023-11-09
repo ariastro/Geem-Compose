@@ -34,8 +34,8 @@ import io.astronout.gamescataloguecompose.presentation.home.HomeScreenEvent
 
 @Composable
 fun GameItem(
-    modifier: Modifier = Modifier,
     game: Game,
+    modifier: Modifier = Modifier,
     onEvent: (HomeScreenEvent) -> Unit)
 {
     Row(

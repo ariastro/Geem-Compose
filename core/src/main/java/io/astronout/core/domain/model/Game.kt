@@ -35,7 +35,8 @@ data class Game(
     val esrbRating: String,
     val shortScreenshots: List<String>,
     val isFavorites: Boolean,
-    val description: String
+    val description: String,
+    val trailerUrl: String
 ): Parcelable {
 
     constructor(data: GameItem?): this(
@@ -64,7 +65,8 @@ data class Game(
         esrbRating = data?.esrbRating?.name.orEmpty(),
         shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty(),
         isFavorites = false,
-        description = data?.description.orEmpty()
+        description = data?.description.orEmpty(),
+        trailerUrl = ""
     )
 
     constructor(data: GameEntity?): this(
@@ -93,6 +95,7 @@ data class Game(
         esrbRating = data?.esrbRating.orEmpty(),
         shortScreenshots = data?.shortScreenshots.orEmpty(),
         isFavorites = data?.isFavorites ?: false,
-        description = data?.description.orEmpty()
+        description = data?.description.orEmpty(),
+        trailerUrl = data?.trailerUrl.orEmpty()
     )
 }

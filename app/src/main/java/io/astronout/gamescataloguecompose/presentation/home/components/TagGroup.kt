@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TagGroup(
-    modifier: Modifier = Modifier,
     tag: List<String>,
+    modifier: Modifier = Modifier,
     isLimited: Boolean = false)
 {
     val limitedGenres = remember(tag) {

@@ -60,6 +60,8 @@ data class GameEntity(
     val shortScreenshots: List<String>,
     @ColumnInfo(name = "description")
     val description: String,
+    @ColumnInfo(name = "trailer_url")
+    val trailerUrl: String,
     @ColumnInfo(name = "is_favorites")
     var isFavorites: Boolean
 ) {
@@ -89,6 +91,7 @@ data class GameEntity(
         esrbRating = data?.esrbRating?.name.orEmpty(),
         shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty(),
         description = "",
-        isFavorites = false
+        trailerUrl = "",
+        isFavorites = false,
     )
 }

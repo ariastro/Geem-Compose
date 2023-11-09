@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.astronout.core.domain.model.Game
 import io.astronout.core.domain.usecase.GameUsecase
 import io.astronout.core.vo.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +23,10 @@ class DetailViewModel @Inject constructor(private val gameUsecase: GameUsecase):
     private val _uiState = MutableStateFlow(DetailScreenState())
     val uiState = _uiState.asStateFlow()
 
-    fun onInit(gameId: Long, navigator: DestinationsNavigator) {
+    fun onInit(game: Game, navigator: DestinationsNavigator) {
         this.navigator = navigator
-        fetchDetailGame(gameId)
+        _uiState.update { it.copy(game = game) }
+        fetchDetailGame(game.id)
     }
 
     fun onEvent(event: DetailScreenEvent) {

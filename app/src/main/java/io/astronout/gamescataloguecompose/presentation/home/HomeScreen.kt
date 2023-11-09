@@ -44,8 +44,10 @@ fun HomeScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar()
         LazyColumn(contentPadding = PaddingValues(vertical = 8.dp)) {
+            item {
+                TopBar()
+            }
             item {
                 SectionTitle(title = "Hot Games")
             }
@@ -68,8 +70,8 @@ fun HomeScreen(
             }
             items(items = state.games, key = { it.id }) {
                 GameItem(
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
                     game = it,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
                     onEvent = viewModel::onEvent
                 )
             }
