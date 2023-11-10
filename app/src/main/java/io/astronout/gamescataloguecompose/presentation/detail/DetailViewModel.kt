@@ -33,7 +33,7 @@ class DetailViewModel @Inject constructor(private val gameUsecase: GameUsecase):
         when (event) {
             DetailScreenEvent.NavigateBack -> navigateBack()
             is DetailScreenEvent.BookmarkGame -> setBookmarked(event.id, event.bookmarked)
-            is DetailScreenEvent.ShareGame -> Unit
+            is DetailScreenEvent.ShareGame -> shareGame(event.game, event.dismissed)
         }
     }
 
@@ -57,6 +57,10 @@ class DetailViewModel @Inject constructor(private val gameUsecase: GameUsecase):
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun shareGame(game: Game?, isDismissed: Boolean) {
+        _uiState.update { it.copy(shareSheetGame = if (isDismissed) null else game) }
     }
 
     private fun setBookmarked(id: Long, isBookmarked: Boolean) {

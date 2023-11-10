@@ -1,5 +1,6 @@
 package io.astronout.gamescataloguecompose.presentation.detail
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
@@ -40,6 +42,8 @@ import io.astronout.core.domain.model.Game
 import io.astronout.core.theme.Neutral40
 import io.astronout.core.theme.Neutral50
 import io.astronout.core.theme.Primary70
+import io.astronout.core.utils.shareLink
+import io.astronout.core.utils.showToast
 import io.astronout.gamescataloguecompose.presentation.detail.components.GamePoster
 import io.astronout.gamescataloguecompose.presentation.detail.components.GeneralGameInfo
 import io.astronout.gamescataloguecompose.presentation.detail.components.Screenshots
@@ -52,6 +56,8 @@ fun DetailScreen(
     navigator: DestinationsNavigator,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.onInit(game, navigator)
@@ -111,6 +117,7 @@ fun DetailScreen(
                                             bookmarked = savedState
                                         )
                                     )
+                                    if (savedState) context.showToast("Bookmarked!")
                                 }
                             )
                     )
@@ -140,6 +147,10 @@ fun DetailScreen(
                 Gap(size = 8.dp)
                 TagGroup(tag = game.tags.take(8))
             }
+        }
+        state.shareSheetGame?.let {
+            context.shareLink("Check out this ${game.name} game on GEEM!")
+            viewModel.onEvent(DetailScreenEvent.ShareGame(dismissed = true))
         }
     }
 }

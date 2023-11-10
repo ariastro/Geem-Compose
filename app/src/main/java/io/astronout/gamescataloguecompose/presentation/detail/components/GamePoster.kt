@@ -84,6 +84,13 @@ fun GamePoster(
                 tint = Color.White,
                 modifier = Modifier
                     .size(24.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(bounded = false),
+                        onClick = {
+                            onEvent(DetailScreenEvent.ShareGame(game))
+                        }
+                    )
             )
         }
         Column(
