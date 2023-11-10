@@ -1,6 +1,5 @@
 package io.astronout.gamescataloguecompose.presentation.detail
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -75,82 +74,87 @@ fun DetailScreen(
             .background(Color.White)
             .verticalScroll(rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy((-30).dp),
-        ) {
-            GamePoster(game = game, onEvent = viewModel::onEvent)
+
+        state.game?.let { game ->
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(Color.White)
-                    .padding(24.dp)
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy((-30).dp),
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                GamePoster(game = game, onEvent = viewModel::onEvent)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(Color.White)
+                        .padding(24.dp)
                 ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.Top,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = game.name,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = Primary70,
+                            modifier = Modifier.weight(1F)
+                        )
+                        Gap(size = 8.dp)
+                        Icon(
+                            imageVector = if (savedState) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
+                            contentDescription = null,
+                            tint = Primary70,
+                            modifier = Modifier
+                                .size(32.dp)
+                                .padding(top = 4.dp)
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = rememberRipple(bounded = false),
+                                    onClick = {
+                                        savedState = !savedState
+                                        viewModel.onEvent(
+                                            DetailScreenEvent.BookmarkGame(
+                                                id = game.id,
+                                                bookmarked = savedState
+                                            )
+                                        )
+                                        if (savedState) context.showToast("Bookmarked!")
+                                    }
+                                )
+                        )
+                    }
+                    Gap(size = 8.dp)
+                    GeneralGameInfo(game = game)
+                    Gap(size = 24.dp)
                     Text(
-                        text = game.name,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Primary70,
-                        modifier = Modifier.weight(1F)
+                        text = "Description",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Primary70
                     )
                     Gap(size = 8.dp)
-                    Icon(
-                        imageVector = if (savedState) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
-                        contentDescription = null,
-                        tint = Primary70,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .padding(top = 4.dp)
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false),
-                                onClick = {
-                                    savedState = !savedState
-                                    viewModel.onEvent(
-                                        DetailScreenEvent.BookmarkGame(
-                                            id = game.id,
-                                            bookmarked = savedState
-                                        )
-                                    )
-                                    if (savedState) context.showToast("Bookmarked!")
-                                }
-                            )
+                    Text(
+                        text = game.description.ifBlank { "-" },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = Neutral50,
                     )
+                    Gap(size = 24.dp)
+                    Screenshots(urls = game.shortScreenshots)
+                    if (game.tags.isNotEmpty()) {
+                        Gap(size = 24.dp)
+                        Text(
+                            text = "Tag",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Neutral40
+                        )
+                        Gap(size = 8.dp)
+                        TagGroup(tag = game.tags.take(8))
+                    }
                 }
-                Gap(size = 8.dp)
-                GeneralGameInfo(game = game)
-                Gap(size = 24.dp)
-                Text(
-                    text = "Description",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = Primary70
-                )
-                Gap(size = 8.dp)
-                Text(
-                    text = state.game?.description ?: "-",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Neutral50,
-                )
-                Gap(size = 24.dp)
-                Screenshots(urls = game.shortScreenshots)
-                Gap(size = 24.dp)
-                Text(
-                    text = "Tag",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Neutral40
-                )
-                Gap(size = 8.dp)
-                TagGroup(tag = game.tags.take(8))
             }
-        }
-        state.shareSheetGame?.let {
-            context.shareLink("Check out this ${game.name} game on GEEM!")
-            viewModel.onEvent(DetailScreenEvent.ShareGame(dismissed = true))
+            state.shareSheetGame?.let {
+                context.shareLink("Check out this ${game.name} game on GEEM!")
+                viewModel.onEvent(DetailScreenEvent.ShareGame(dismissed = true))
+            }
         }
     }
 }

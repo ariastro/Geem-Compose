@@ -61,7 +61,7 @@ data class GameEntity(
     @ColumnInfo(name = "description")
     val description: String,
     @ColumnInfo(name = "trailer_url")
-    val trailerUrl: String,
+    val trailerUrl: String?,
     @ColumnInfo(name = "is_favorites")
     var isFavorites: Boolean
 ) {
@@ -91,7 +91,7 @@ data class GameEntity(
         esrbRating = data?.esrbRating?.name.orEmpty(),
         shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty(),
         description = "",
-        trailerUrl = "",
+        trailerUrl = null,
         isFavorites = false,
     )
 }

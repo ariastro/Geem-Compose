@@ -2,6 +2,7 @@ package io.astronout.core.data.source.remote
 
 import com.skydoves.sandwich.ApiResponse
 import io.astronout.core.data.source.remote.model.GameItem
+import io.astronout.core.data.source.remote.model.GameTrailerResponse
 import io.astronout.core.data.source.remote.model.GamesResponse
 import io.astronout.core.data.source.remote.web.ApiService
 import javax.inject.Inject
@@ -64,4 +65,9 @@ class RemoteDataSource @Inject constructor(private val api: ApiService) : ApiSer
         return api.getGameDetails(id)
     }
 
+    override suspend fun getGameTrailers(id: Long): ApiResponse<GameTrailerResponse> {
+        return api.getGameTrailers(id)
+    }
+
 }
+

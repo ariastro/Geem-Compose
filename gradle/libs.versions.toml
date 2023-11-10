@@ -27,11 +27,14 @@ moshi                           = "1.14.0"
 chucker                         = "4.0.0"
 lifecycle                       = "2.6.2"
 coil                            = "2.5.0"
+media3                          = "1.1.1"
+accompanist                     = "0.28.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+compose-test-junit = { module = "androidx.compose.ui:ui-test-junit4" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -80,6 +83,11 @@ lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", versi
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
+media-exo-player = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
+media-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+
+accompanist = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+
 [plugins]
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
@@ -91,3 +99,4 @@ networking = ["retrofit", "retrofit-moshi", "okhttp", "okhttp-logging", "sandwic
 room = ["room-ktx", "room-paging", "room-runtime"]
 moshi = ["moshi", "moshi-kotlin"]
 lifecycle = ["lifecycle-ktx", "livedata", "lifecycle-runtime"]
+media3 = ["media-exo-player", "media-ui"]

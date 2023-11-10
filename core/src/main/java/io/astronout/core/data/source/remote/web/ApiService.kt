@@ -2,6 +2,7 @@ package io.astronout.core.data.source.remote.web
 
 import com.skydoves.sandwich.ApiResponse
 import io.astronout.core.data.source.remote.model.GameItem
+import io.astronout.core.data.source.remote.model.GameTrailerResponse
 import io.astronout.core.data.source.remote.model.GamesResponse
 import retrofit2.http.*
 import java.util.*
@@ -39,5 +40,10 @@ interface ApiService {
     suspend fun getGameDetails(
         @Path("id") id: Long
     ): ApiResponse<GameItem>
+
+    @GET("games/{id}/movies")
+    suspend fun getGameTrailers(
+        @Path("id") id: Long
+    ): ApiResponse<GameTrailerResponse>
 
 }

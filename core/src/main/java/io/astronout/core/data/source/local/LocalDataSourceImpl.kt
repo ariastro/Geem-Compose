@@ -42,4 +42,8 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun updateGameDescription(id: Long, description: String) {
         appDatabase.gameDao().updateGameDescription(id, description)
     }
+
+    override suspend fun updateGameTrailer(id: Long, trailerUrl: String) {
+        appDatabase.gameDao().updateGameTrailer(id, trailerUrl)
+    }
 }

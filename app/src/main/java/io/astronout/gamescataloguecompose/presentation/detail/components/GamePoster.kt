@@ -93,31 +93,40 @@ fun GamePoster(
                     )
             )
         }
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .background(Color.White, CircleShape)
-                    .clickable {}
+        if (!game.trailerUrl.isNullOrEmpty()) {
+            Column(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_play),
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Primary70),
+                Box(
                     modifier = Modifier
-                        .size(24.dp)
-                        .align(Alignment.Center)
+                        .size(50.dp)
+                        .background(Color.White, CircleShape)
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = rememberRipple(bounded = false),
+                        ) {
+                            game.trailerUrl?.let {
+                                onEvent(DetailScreenEvent.PlayTrailer(it))
+                            }
+                        }
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_play),
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(Primary70),
+                        modifier = Modifier
+                            .size(24.dp)
+                            .align(Alignment.Center)
+                    )
+                }
+                Gap(size = 8.dp)
+                Text(
+                    text = stringResource(id = R.string.action_play_trailer),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = Color.White
                 )
             }
-            Gap(size = 8.dp)
-            Text(
-                text = stringResource(id = R.string.action_play_trailer),
-                style = MaterialTheme.typography.titleSmall,
-                color = Color.White
-            )
         }
     }
 }
