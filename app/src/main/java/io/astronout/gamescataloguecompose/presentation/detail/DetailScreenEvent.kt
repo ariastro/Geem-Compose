@@ -15,4 +15,8 @@ sealed class DetailScreenEvent {
         val dismissed: Boolean = false
     ) : DetailScreenEvent()
 
+    data class PlayTrailer(
+        val url: String
+    ) : DetailScreenEvent()
+
 }

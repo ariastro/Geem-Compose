@@ -36,7 +36,7 @@ data class Game(
     val shortScreenshots: List<String>,
     val isFavorites: Boolean,
     val description: String,
-    val trailerUrl: String
+    val trailerUrl: String?
 ): Parcelable {
 
     constructor(data: GameItem?): this(
@@ -96,6 +96,6 @@ data class Game(
         shortScreenshots = data?.shortScreenshots.orEmpty(),
         isFavorites = data?.isFavorites ?: false,
         description = data?.description.orEmpty(),
-        trailerUrl = data?.trailerUrl.orEmpty()
+        trailerUrl = data?.trailerUrl
     )
 }

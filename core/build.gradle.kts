@@ -99,11 +99,15 @@ dependencies {
 
     api(libs.coil)
 
+    api(libs.bundles.media3)
+
+    api(libs.accompanist)
+
+    api(libs.appcompat)
+    api(libs.material)
+
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
 
     testImplementation(libs.junit)
     androidTestApi(platform(libs.compose.bom))

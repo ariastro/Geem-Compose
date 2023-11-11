@@ -13,5 +13,6 @@ interface LocalDataSource {
     fun getAllFavoriteGames(): Flow<List<GameEntity>>
     suspend fun insertGames(games: List<GameEntity>)
     suspend fun updateGameDescription(id: Long, description: String)
+    suspend fun updateGameTrailer(id: Long, trailerUrl: String)
 
 }

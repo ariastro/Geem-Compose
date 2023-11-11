@@ -65,11 +65,11 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.compose.test.junit)
+
     ksp(libs.compose.destination.ksp)
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.android.compiler)
