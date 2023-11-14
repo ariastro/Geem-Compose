@@ -72,7 +72,9 @@ fun HomeScreen(
                 GameItem(
                     game = it,
                     modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
-                    onEvent = viewModel::onEvent
+                    onEvent = { game ->
+                        viewModel.onEvent(HomeScreenEvent.NavigateToDetailScreen(game))
+                    }
                 )
             }
             item {

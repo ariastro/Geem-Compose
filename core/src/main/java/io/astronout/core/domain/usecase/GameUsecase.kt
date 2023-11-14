@@ -12,7 +12,7 @@ interface GameUsecase {
 
     suspend fun setIsFavorites(isFavorites: Boolean, id: Long)
 
-    fun getAllFavoritesGames(): Flow<List<Game>>
+    fun getBookmarkedGames(): Flow<List<Game>>
 
     fun getGameDetails(id: Long): Flow<Resource<Game>>
 

@@ -20,7 +20,7 @@ class GameInteractor @Inject constructor(private val repo: GamesRepository) : Ga
         repo.setIsFavorites(isFavorites, id)
     }
 
-    override fun getAllFavoritesGames(): Flow<List<Game>> {
+    override fun getBookmarkedGames(): Flow<List<Game>> {
         return repo.getAllFavoritesGames()
     }
 

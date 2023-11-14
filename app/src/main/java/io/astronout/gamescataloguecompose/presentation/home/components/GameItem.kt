@@ -36,14 +36,14 @@ import io.astronout.gamescataloguecompose.presentation.home.HomeScreenEvent
 fun GameItem(
     game: Game,
     modifier: Modifier = Modifier,
-    onEvent: (HomeScreenEvent) -> Unit)
+    onEvent: (Game) -> Unit)
 {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(120.dp)
             .clickable {
-                onEvent(HomeScreenEvent.NavigateToDetailScreen(game))
+                onEvent(game)
             }
     ) {
         NetworkImage(
