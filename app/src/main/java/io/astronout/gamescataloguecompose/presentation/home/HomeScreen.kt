@@ -49,6 +49,7 @@ fun HomeScreen(
                 TopBar()
             }
             item {
+                Gap(size = 16.dp)
                 SectionTitle(title = "Hot Games")
             }
             item {

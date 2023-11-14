@@ -13,7 +13,11 @@ import androidx.compose.ui.unit.dp
 import io.astronout.core.theme.Primary50
 
 @Composable
-fun SectionTitle(title: String, modifier: Modifier = Modifier) {
+fun SectionTitle(
+    title: String,
+    modifier: Modifier = Modifier,
+    isShowMore: Boolean = false
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -26,6 +30,6 @@ fun SectionTitle(title: String, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.titleSmall,
             color = Primary50
         )
-        SeeMoreCard()
+        if (isShowMore) SeeMoreCard()
     }
 }

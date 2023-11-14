@@ -71,7 +71,6 @@ fun DetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
             .verticalScroll(rememberScrollState())
     ) {
 

@@ -56,19 +56,12 @@ fun GamesCatalogueComposeTheme(
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
-//        SideEffect {
-//            val window = (view.context as Activity).window
-//            window.statusBarColor = colorScheme.primary.toArgb()
-//            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-//        }
-
         SideEffect {
-            with(view.context as Activity) {
-                WindowCompat.setDecorFitsSystemWindows(window, false)
-                WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
-                window.statusBarColor = Color.Transparent.toArgb()
-                window.navigationBarColor = Color.Transparent.toArgb()
-            }
+            val window = (view.context as Activity).window
+            window.statusBarColor = Color.Transparent.toArgb()
+            window.navigationBarColor = Color.Transparent.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
 
