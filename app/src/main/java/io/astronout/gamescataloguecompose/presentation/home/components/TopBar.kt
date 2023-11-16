@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.astronout.core.components.Gap
 import io.astronout.core.theme.Neutral50
@@ -38,7 +39,7 @@ fun TopBar(modifier: Modifier = Modifier) {
             modifier = Modifier.weight(1F),
         ) {
             Text(
-                text = "GEEM",
+                text = stringResource(id = R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
                 color = Primary50,
             )
@@ -48,11 +49,11 @@ fun TopBar(modifier: Modifier = Modifier) {
                 color = Neutral50,
             )
         }
-        Image(
-            painter = painterResource(id = R.drawable.ic_setting),
-            contentDescription = null,
-            colorFilter = ColorFilter.tint(Primary50),
-            modifier = Modifier.size(24.dp)
-        )
+//        Image(
+//            painter = painterResource(id = R.drawable.ic_setting),
+//            contentDescription = null,
+//            colorFilter = ColorFilter.tint(Primary50),
+//            modifier = Modifier.size(24.dp)
+//        )
     }
 }

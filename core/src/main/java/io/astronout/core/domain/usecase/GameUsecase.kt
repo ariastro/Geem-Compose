@@ -18,4 +18,6 @@ interface GameUsecase {
 
     fun fetchGameTrailer(id: Long): Flow<Resource<Game>>
 
+    fun searchGames(query: String): Flow<Resource<List<Game>>>
+
 }

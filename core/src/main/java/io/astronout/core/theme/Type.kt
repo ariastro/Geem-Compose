@@ -21,6 +21,15 @@ val poppins = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    headlineMedium = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 26.sp,
+        letterSpacing = 0.sp,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = false
+        )
+    ),
     titleLarge = TextStyle(
         fontFamily = poppins,
         fontWeight = FontWeight.Bold,

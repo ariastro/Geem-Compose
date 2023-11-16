@@ -32,4 +32,8 @@ class GameInteractor @Inject constructor(private val repo: GamesRepository) : Ga
         return repo.getGameTrailer(id)
     }
 
+    override fun searchGames(query: String): Flow<Resource<List<Game>>> {
+        return repo.searchGame(query)
+    }
+
 }

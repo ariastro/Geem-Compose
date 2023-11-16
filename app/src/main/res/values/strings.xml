@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Geem</string>
+    <string name="app_name">GEEM</string>
+    <string name="app_description">Largest Game Database</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_bookmark">Bookmark</string>
     <string name="action_play_trailer">Play Trailer</string>
+    <string name="label_bookmark_description">Save your favorite games and get back whenever you like!</string>
 </resources>

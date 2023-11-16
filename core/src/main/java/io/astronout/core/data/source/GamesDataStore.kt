@@ -102,6 +102,26 @@ class GamesDataStore @Inject constructor(
 
         }.asFlow()
 
+    override fun searchGame(query: String): Flow<Resource<List<Game>>> =
+        object : NetworkBoundResource<List<Game>, GamesResponse>() {
+            override fun loadFromDB(): Flow<List<Game>> {
+                return localDataSource.searchGames(query).map { games ->
+                    games.map { Game(it) }
+                }
+            }
+
+            override suspend fun createCall(): ApiResponse<GamesResponse> =
+                remoteDataSource.getAllGames(search = query)
+
+            override suspend fun saveCallResult(data: GamesResponse) {
+                localDataSource.insertGames(data.results?.map { GameEntity(it) }.orEmpty())
+            }
+
+            override fun shouldFetch(data: List<Game>?): Boolean =
+                data.isNullOrEmpty()
+
+        }.asFlow()
+
     override suspend fun setIsFavorites(isFavorites: Boolean, id: Long) {
         localDataSource.setIsFavorites(isFavorites, id)
     }
