@@ -1,5 +1,6 @@
 package io.astronout.gamescataloguecompose.presentation.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val gameUsecase: GameUsecase): ViewModel() {
+class SearchViewModel @Inject constructor(private val gameUsecase: GameUsecase) : ViewModel() {
 
     private lateinit var navigator: DestinationsNavigator
     private var searchJob: Job? = null
@@ -47,15 +48,16 @@ class SearchViewModel @Inject constructor(private val gameUsecase: GameUsecase):
         _uiState.update {
             it.copy(query = query)
         }
-        if (query.isNotEmpty()) {
-            searchJob?.cancel()
-            searchJob = viewModelScope.launch {
-                delay(500L)
+        Log.d("checkQuery", query)
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500L)
+            if (query.isNotEmpty()) {
                 searchGames(query)
-            }
-        } else {
-            _uiState.update {
-                it.copy(games = emptyList(), error = null, isLoading = false)
+            } else {
+                _uiState.update {
+                    it.copy(games = emptyList(), error = null, isLoading = false)
+                }
             }
         }
     }
@@ -68,11 +70,13 @@ class SearchViewModel @Inject constructor(private val gameUsecase: GameUsecase):
                         it.copy(error = result.message, isLoading = false)
                     }
                 }
+
                 is Resource.Loading -> {
                     _uiState.update {
                         it.copy(isLoading = true)
                     }
                 }
+
                 is Resource.Success -> {
                     _uiState.update {
                         it.copy(games = result.data, error = null, isLoading = false)
