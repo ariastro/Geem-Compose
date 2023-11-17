@@ -66,6 +66,7 @@ android {
 dependencies {
     implementation(project(":core"))
     testImplementation(libs.junit)
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.compose.test.junit)

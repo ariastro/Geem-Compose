@@ -110,7 +110,7 @@ dependencies {
     releaseImplementation(libs.chucker.no.op)
 
     testImplementation(libs.junit)
-    androidTestApi(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
