@@ -45,12 +45,14 @@ Go to the [Releases](https://github.com/ariastro/Geem-Compose/releases) to downl
   - Clean Architecture
   - MVVM Architecture (Model - View - ViewModel)
   - Repository Pattern
+- [Compose Destination](https://github.com/raamcosta/compose-destinations): A KSP library that processes annotations and generates code that uses Official Jetpack Compose Navigation under the hood.
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit): Construct the REST APIs and paging network data.
 - [Sandwich](https://github.com/skydoves/Sandwich): Construct a lightweight and modern response interface to handle network payload for Android.
 - [Moshi](https://github.com/square/moshi/): A modern JSON library for Kotlin and Java.
 - [ksp](https://github.com/google/ksp): Kotlin Symbol Processing API.
 - [Material-Components](https://github.com/material-components/material-components-android): Material design components for building ripple animation, and CardView.
 - [Coil](https://github.com/coil-kt/coil): Loading images from network.
+- [Media3](https://github.com/androidx/media): A media player is an app-level component that allows playback of video and audio files.
 - [Timber](https://github.com/JakeWharton/timber): A logger with a small, extensible API.
 
 
