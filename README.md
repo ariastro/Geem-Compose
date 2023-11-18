@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://github.com/ariastro/Geem-Compose/blob/master/LICENSE.txt"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
   <a href="https://android-arsenal.com/api?level=26"><img alt="API" src="https://img.shields.io/badge/API-26%2B-brightgreen.svg?style=flat"/></a>
-<!--   <a href="https://github.com/ariastro/Geem-Compose/actions"><img alt="Build Status" src="https://github.com/ariastro/Geem-Compose/workflows/Android%20CI/badge.svg"/></a> <br> -->
+  <a href="https://github.com/ariastro/Geem-Compose/actions"><img alt="Build Status" src="https://github.com/ariastro/Geem-Compose/workflows/Android%20CI/badge.svg"/></a> <br>
   <a href="https://github.com/ariastro/Geem-Compose/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/ariastro/Geem-Compose.svg"/></a>
   <a href="https://github.com/ariastro/Geem-Compose/network/members"><img alt="Fork" src="https://img.shields.io/github/forks/ariastro/Geem-Compose.svg"/></a>
   <a href="https://github.com/ariastro/Geem-Compose/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/ariastro/Geem-Compose.svg"/></a> 
