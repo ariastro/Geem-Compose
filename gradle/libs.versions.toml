@@ -89,6 +89,7 @@ media-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
 accompanist = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 [plugins]
+application = { id = "com.android.application", version.ref = "agp"}
 com-android-library = { id = "com.android.library", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
